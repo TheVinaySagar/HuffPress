@@ -3,6 +3,10 @@ import { ThemeWrapper } from "@/components/theme-wrapper"
 import "./globals.css"
 import Link from "next/link"
 import { ThemeToggle } from "@/components/theme-toggle"
+import { Menu } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
+import { VisuallyHidden } from '@radix-ui/react-visually-hidden'
 
 export const metadata: Metadata = {
   title: "HuffPress",
@@ -23,12 +27,51 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                     HuffPress
                   </Link>
                 </h1>
+
+                {/* Desktop Navigation */}
                 <nav className="hidden md:flex gap-4">
                   <Link href="/" className="hover:underline">Home</Link>
                   <Link href="/features" className="hover:underline">Features</Link>
                   <Link href="/about" className="hover:underline">About</Link>
                 </nav>
-                <ThemeToggle />
+
+                {/* Mobile Navigation */}
+                <div className="flex items-center gap-4">
+                  <Sheet>
+                    <SheetTrigger asChild>
+                      <Button variant="ghost" size="icon" className="md:hidden">
+                        <Menu className="h-5 w-5" />
+                        <span className="sr-only">Toggle menu</span>
+                      </Button>
+                    </SheetTrigger>
+                    <SheetContent side="right" className="w-[250px] sm:w-[300px]">
+                      <SheetTitle>
+                        <VisuallyHidden>Navigation Menu</VisuallyHidden>
+                      </SheetTitle>
+                      <nav className="flex flex-col gap-4 mt-8">
+                        <Link
+                          href="/"
+                          className="text-foreground hover:text-primary transition-colors px-4 py-2 rounded-lg hover:bg-accent"
+                        >
+                          Home
+                        </Link>
+                        <Link
+                          href="/features"
+                          className="text-foreground hover:text-primary transition-colors px-4 py-2 rounded-lg hover:bg-accent"
+                        >
+                          Features
+                        </Link>
+                        <Link
+                          href="/about"
+                          className="text-foreground hover:text-primary transition-colors px-4 py-2 rounded-lg hover:bg-accent"
+                        >
+                          About
+                        </Link>
+                      </nav>
+                    </SheetContent>
+                  </Sheet>
+                  <ThemeToggle />
+                </div>
               </div>
             </header>
 
